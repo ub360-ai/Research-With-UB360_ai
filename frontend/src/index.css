@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-chat-bg-light dark:bg-chat-bg-dark text-chat-text-light dark:text-chat-text-dark;
+    @apply transition-colors duration-200;
+    /* Subtle background pattern */
+    background-image:
+      repeating-linear-gradient(45deg,
+        transparent,
+        transparent 100px,
+        rgba(16, 163, 127, 0.02) 100px,
+        rgba(16, 163, 127, 0.02) 200px);
+  }
+}
+
+@layer components {
+
+  /* ChatGPT-style scrollbar */
+  .chat-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .chat-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .chat-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+  }
+
+  .chat-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-500;
+  }
+
+  /* UB360.ai Branding Utilities */
+  .ub360-gradient {
+    background: linear-gradient(135deg, #10A37F 0%, #0d8f6f 100%);
+  }
+
+  .ub360-text-gradient {
+    background: linear-gradient(135deg, #10A37F 0%, #0d8f6f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Watermark animation */
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px) rotate(-15deg);
+    }
+
+    50% {
+      transform: translateY(-10px) rotate(-15deg);
+    }
+  }
+
+  .watermark-float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
