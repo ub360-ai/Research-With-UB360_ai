@@ -14,7 +14,9 @@ endpoints:
   - name: Health Check
     port: 8080
     type: REST
-    networkVisibility: Public
+    networkVisibility: 
+      - Public
+      - Project
     context: /api/v1/health
 
 # Build configuration
