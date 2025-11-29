@@ -1,0 +1,70 @@
+# Research With UB360.ai - Backend Dependencies
+# Phase 1: Core Backend Setup
+# Phase 2: Multi-Format Document Processing
+# Phase 3: Export & Bibliography Generation
+
+# ============= Core Framework =============
+fastapi==0.115.9
+uvicorn[standard]==0.35.0
+python-dotenv==1.1.1
+pydantic==2.11.7
+pydantic-settings==2.7.1
+
+# ============= Google Gemini (ONLY LLM) =============
+# Note: google-generativeai will install the correct google-ai-generativelanguage version
+google-generativeai==0.8.3
+langchain-google-genai==2.1.10
+
+# ============= LangChain Core =============
+langchain==0.3.27
+langchain-core==0.3.76
+langchain-text-splitters==0.3.11
+
+# ============= Vector Database =============
+chromadb==1.0.12
+sentence-transformers==5.1.0
+
+# ============= ML/AI Dependencies =============
+torch==2.8.0
+transformers==4.56.1
+numpy==2.3.3
+scikit-learn==1.7.2
+
+# ============= Document Processing (Phase 2) =============
+PyPDF2==3.0.1
+pdfplumber==0.11.0
+python-docx==1.1.0
+beautifulsoup4==4.12.3
+lxml==5.1.0
+Pillow==11.0.0
+
+# ============= Export & Reports (Phase 3) =============
+reportlab==4.1.0
+markdown==3.5.2
+markdown2==2.4.10
+html5lib==1.1
+Jinja2==3.1.6
+
+# ============= File Upload & Handling =============
+python-multipart==0.0.9
+aiofiles==23.2.1
+
+# ============= HTTP & Networking =============
+httpx==0.28.1
+requests==2.32.5
+
+# ============= Utilities =============
+python-dateutil==2.9.0.post0
+typing-extensions==4.15.0
+
+# ============= Production Server =============
+gunicorn==21.2.0
+
+# ============= Scheduler (Data Cleanup) =============
+apscheduler==3.10.4
+
+# ============= Development (Optional) =============
+# pytest==8.0.0
+# pytest-asyncio==0.23.5
+# black==24.2.0
+# flake8==7.0.0

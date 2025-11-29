@@ -44,10 +44,14 @@ data/
 uploads/
 documents/
 temp/
+
+# User uploaded files (but allow config files)
 *.pdf
 *.docx
-*.txt
-*.md
+
+# Allow essential text files
+!requirements.txt
+!.env.example
 !README.md
 !*.md
 
