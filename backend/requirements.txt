@@ -11,9 +11,9 @@ pydantic==2.11.7
 pydantic-settings==2.7.1
 
 # ============= Google Gemini (ONLY LLM) =============
-# Note: google-generativeai will install the correct google-ai-generativelanguage version
-google-generativeai==0.8.3
-langchain-google-genai==2.1.10
+# Let pip auto-resolve compatible versions to avoid conflicts
+google-generativeai>=0.8.0
+langchain-google-genai>=2.0.0
 
 # ============= LangChain Core =============
 langchain==0.3.27
