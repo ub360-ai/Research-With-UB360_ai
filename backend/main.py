@@ -2,16 +2,21 @@
 Research With UB360.ai - Main FastAPI Application
 AI-Powered Research Assistant for Students
 Privacy-First: Data automatically deleted after 48 hours
+Optimized for Choreo Deployment
 """
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from contextlib import asynccontextmanager
 import uvicorn
+import os
+from datetime import datetime
 
 from config import settings
 from api.v1 import documents, queries, health, export
 from services.cleanup_scheduler import DataCleanupScheduler
+from middleware.rate_limiter import rate_limiter
 
 # Initialize cleanup scheduler
 cleanup_scheduler = None
@@ -66,14 +71,47 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
-# CORS Middleware
+# CORS Middleware - Choreo Compatible
+allowed_origins = settings.CORS_ORIGINS.copy()
+
+# Add Choreo domains if in production
+if os.getenv("CHOREO_ENV") == "production":
+    allowed_origins.extend([
+        "https://*.choreoapis.dev",
+        "https://*.choreo.dev",
+    ])
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
+    allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
+
+# Security Headers Middleware
+@app.middleware("http")
+async def add_security_headers(request: Request, call_next):
+    """Add security headers to all responses"""
+    response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
+    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+    return response
+
+# Rate Limiting Middleware
+@app.middleware("http")
+async def rate_limit_middleware(request: Request, call_next):
+    """Apply rate limiting to all requests"""
+    # Skip rate limiting for health checks
+    if request.url.path == "/api/v1/health":
+        return await call_next(request)
+    
+    # Apply rate limiting
+    await rate_limiter(request)
+    return await call_next(request)
 
 
 # Exception Handlers

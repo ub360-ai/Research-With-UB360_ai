@@ -1,0 +1,74 @@
+# Choreo Component Configuration - Frontend Web Application
+# This file defines how Choreo should build and deploy the frontend
+
+schemaVersion: 1.0
+
+# Build configuration for React SPA
+build:
+  type: buildpack
+  buildpack: nodejs
+  nodeVersion: "18"
+  buildCommand: npm run build
+  outputPath: dist
+
+# Environment variables
+env:
+  - name: VITE_API_URL
+    value: ""
+    description: "Backend API URL (set after backend deployment)"
+    
+  - name: VITE_APP_NAME
+    value: "Research with UB360.ai"
+    description: "Application name"
+    
+  - name: VITE_APP_VERSION
+    value: "1.0.0"
+    description: "Application version"
+    
+  - name: VITE_BRAND_NAME
+    value: "UB360.ai"
+    description: "Brand name"
+    
+  - name: VITE_BRAND_HANDLE
+    value: "@ub360_ai"
+    description: "Brand handle"
+    
+  - name: VITE_ENABLE_ANALYTICS
+    value: "false"
+    description: "Enable analytics"
+    
+  - name: VITE_ENABLE_DEBUG
+    value: "false"
+    description: "Enable debug mode"
+
+# SPA routing configuration
+routing:
+  type: spa
+  fallback: index.html
+
+# Cache configuration for static assets
+caching:
+  enabled: true
+  maxAge: 31536000 # 1 year for static assets
+  
+# Security headers for web application
+headers:
+  - name: X-Content-Type-Options
+    value: nosniff
+    
+  - name: X-Frame-Options
+    value: DENY
+    
+  - name: X-XSS-Protection
+    value: "1; mode=block"
+    
+  - name: Referrer-Policy
+    value: strict-origin-when-cross-origin
+    
+  - name: Permissions-Policy
+    value: "geolocation=(), microphone=(), camera=()"
+
+# Performance optimization
+optimization:
+  compression: true
+  minify: true
