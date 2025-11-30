@@ -1,94 +1,14 @@
-# Choreo Component Configuration - Backend Service
-# This file defines how Choreo should build and deploy the backend
-
-schemaVersion: 1.0
-
-# Component metadata
+schemaVersion: "1.0"
 endpoints:
-  - name: REST API
-    port: 8080
-    type: REST
-    networkVisibility: Public
-    context: /api/v1
-    
-  - name: Health Check
-    port: 8080
-    type: REST
-    networkVisibility: 
-      - Public
-      - Project
-    context: /api/v1/health
+    - name: rest-api-be2
+      displayName: REST API
+      service:
+        basePath: /
+        port: 8000
+      type: REST
+      networkVisibilities:
+        - Project
+        - Public
 
-# Build configuration
-build:
-  type: dockerfile
-  dockerfilePath: Dockerfile
-  dockerContext: .
 
-# Container configuration
-container:
-  port: 8080
 
-# Environment variables (values set in Choreo Console)
-env:
-  - name: GOOGLE_API_KEY
-    valueFrom: secret
-    description: "Google Gemini API Key"
-    
-  - name: GEMINI_MODEL
-    value: "gemini-2.0-flash"
-    description: "Gemini model to use"
-    
-  - name: GEMINI_TEMPERATURE
-    value: "0.7"
-    description: "Model temperature"
-    
-  - name: EMBEDDING_MODEL
-    value: "all-MiniLM-L6-v2"
-    description: "Sentence transformer model"
-    
-  - name: FRONTEND_URL
-    value: ""
-    description: "Frontend URL for CORS (set after frontend deployment)"
-    
-  - name: CHOREO_ENV
-    value: "production"
-    description: "Environment indicator"
-    
-  - name: BRAND_NAME
-    value: "UB360.ai"
-    
-  - name: BRAND_HANDLE
-    value: "@ub360_ai"
-    
-  - name: BRAND_TAGLINE
-    value: "Your AI Research Assistant"
-    
-  - name: MAX_FILE_SIZE_MB
-    value: "50"
-    description: "Maximum file upload size in MB"
-
-# Health check configuration
-healthCheck:
-  endpoint: /api/v1/health
-  port: 8080
-  initialDelaySeconds: 30
-  periodSeconds: 10
-  timeoutSeconds: 5
-  successThreshold: 1
-  failureThreshold: 3
-
-# Resource limits
-resources:
-  requests:
-    memory: "2Gi"
-    cpu: "1000m"
-  limits:
-    memory: "4Gi"
-    cpu: "2000m"
-
-# Scaling configuration
-scaling:
-  minReplicas: 1
-  maxReplicas: 3
-  targetCPUUtilizationPercentage: 80

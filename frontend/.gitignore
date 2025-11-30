@@ -4,11 +4,11 @@ node_modules/
 .pnp.js
 
 # Testing
+
 /coverage
 
 # Production
-/build
-/dist
+dist
 
 # Environment Variables
 .env
@@ -52,5 +52,4 @@ Thumbs.db
 .cache/
 
 # Vite
-.vite/
-vite.config.js.timestamp-*
+

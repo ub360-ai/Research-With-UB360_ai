@@ -79,7 +79,7 @@ dmypy.json
 .ipynb_checkpoints
 
 # pyenv
-.python-version
+
 
 # Celery
 celerybeat-schedule
@@ -100,3 +100,6 @@ celerybeat.pid
 
 # Pyre type checker
 .pyre/
+
+#dockerfile
+Dockerfile
