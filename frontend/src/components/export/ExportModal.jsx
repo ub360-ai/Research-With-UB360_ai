@@ -127,58 +127,60 @@ export default function ExportModal({ onClose }) {
     }
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+        <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/50 backdrop-blur-sm">
             <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-lg w-full"
+                initial={{ opacity: 0, y: 100, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 100, scale: 0.95 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                className="bg-white dark:bg-gray-800 rounded-t-2xl sm:rounded-lg shadow-xl max-w-lg w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto"
             >
                 {/* Header */}
-                <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-                    <div>
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800 z-10">
+                    <div className="flex-1 min-w-0 pr-2">
+                        <h2 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-white truncate">
                             Export Chat History
                         </h2>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                            Download your conversations with UB360.ai branding
+                        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
+                            Download with UB360.ai branding
                         </p>
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                        className="p-2 sm:p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 active:bg-gray-200 dark:active:bg-gray-600 rounded-lg transition-colors touch-manipulation flex-shrink-0"
+                        aria-label="Close modal"
                     >
                         <X className="w-5 h-5" />
                     </button>
                 </div>
 
                 {/* Content */}
-                <div className="p-6 space-y-6">
+                <div className="p-4 sm:p-6 space-y-5 sm:space-y-6">
                     {/* Export Type */}
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                             What to Export
                         </label>
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <button
                                 onClick={() => setExportType('current')}
-                                className={`flex items-center gap-2 px-4 py-3 rounded-lg border-2 transition-colors ${exportType === 'current'
+                                className={`flex items-center justify-center gap-2 px-4 py-3 min-h-[52px] rounded-lg border-2 transition-colors touch-manipulation ${exportType === 'current'
                                     ? 'border-chat-accent bg-chat-accent/10 text-chat-accent'
-                                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'
+                                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500'
                                     }`}
                             >
-                                <MessageSquare className="w-4 h-4" />
-                                <span className="font-medium">Current Chat</span>
+                                <MessageSquare className="w-5 h-5 sm:w-4 sm:h-4" />
+                                <span className="font-medium text-sm sm:text-base">Current Chat</span>
                             </button>
                             <button
                                 onClick={() => setExportType('all')}
-                                className={`flex items-center gap-2 px-4 py-3 rounded-lg border-2 transition-colors ${exportType === 'all'
+                                className={`flex items-center justify-center gap-2 px-4 py-3 min-h-[52px] rounded-lg border-2 transition-colors touch-manipulation ${exportType === 'all'
                                     ? 'border-chat-accent bg-chat-accent/10 text-chat-accent'
-                                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'
+                                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500'
                                     }`}
                             >
-                                <Download className="w-4 h-4" />
-                                <span className="font-medium">All Chats (ZIP)</span>
+                                <Download className="w-5 h-5 sm:w-4 sm:h-4" />
+                                <span className="font-medium text-sm sm:text-base">All Chats (ZIP)</span>
                             </button>
                         </div>
                     </div>
@@ -188,14 +190,14 @@ export default function ExportModal({ onClose }) {
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                             Export Format
                         </label>
-                        <div className="grid grid-cols-3 gap-3">
+                        <div className="grid grid-cols-3 gap-2 sm:gap-3">
                             {['pdf', 'docx', 'json'].map((format) => (
                                 <button
                                     key={format}
                                     onClick={() => setExportFormat(format)}
-                                    className={`px-4 py-3 rounded-lg border-2 transition-colors font-medium uppercase ${exportFormat === format
+                                    className={`px-3 sm:px-4 py-3 min-h-[52px] rounded-lg border-2 transition-colors font-medium uppercase text-xs sm:text-sm touch-manipulation ${exportFormat === format
                                         ? 'border-chat-accent bg-chat-accent/10 text-chat-accent'
-                                        : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'
+                                        : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500'
                                         }`}
                                 >
                                     {format}
@@ -210,8 +212,8 @@ export default function ExportModal({ onClose }) {
                     </div>
 
                     {/* Branding Info */}
-                    <div className="bg-chat-accent/5 border border-chat-accent/20 rounded-lg p-4">
-                        <p className="text-sm text-gray-700 dark:text-gray-300">
+                    <div className="bg-chat-accent/5 border border-chat-accent/20 rounded-lg p-3 sm:p-4">
+                        <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-300">
                             <span className="font-semibold text-chat-accent">✨ UB360.ai Branding:</span>
                             <br />
                             All exports include watermarks and "Follow @ub360_ai on X" branding
@@ -222,7 +224,7 @@ export default function ExportModal({ onClose }) {
                     <button
                         onClick={handleExport}
                         disabled={loading}
-                        className="w-full px-6 py-3 bg-chat-accent text-white rounded-lg hover:bg-chat-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-semibold flex items-center justify-center gap-2"
+                        className="w-full px-6 py-3 sm:py-3.5 min-h-[52px] bg-chat-accent text-white rounded-lg hover:bg-chat-accent/90 active:bg-chat-accent/80 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-semibold flex items-center justify-center gap-2 touch-manipulation"
                     >
                         {loading ? (
                             <>
