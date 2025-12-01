@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { X, MessageSquare, Download } from 'lucide-react'
-import { exportConversation, exportConversationsBatch } from '../../api/client'
+import { exportConversation, exportConversationsBatch } from '../../util'
 import toast from 'react-hot-toast'
 import { useChat } from '../../context/ChatContext'
 import { useConversation } from '../../context/ConversationContext'
@@ -163,8 +163,8 @@ export default function ExportModal({ onClose }) {
                             <button
                                 onClick={() => setExportType('current')}
                                 className={`flex items-center gap-2 px-4 py-3 rounded-lg border-2 transition-colors ${exportType === 'current'
-                                        ? 'border-chat-accent bg-chat-accent/10 text-chat-accent'
-                                        : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'
+                                    ? 'border-chat-accent bg-chat-accent/10 text-chat-accent'
+                                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'
                                     }`}
                             >
                                 <MessageSquare className="w-4 h-4" />
@@ -173,8 +173,8 @@ export default function ExportModal({ onClose }) {
                             <button
                                 onClick={() => setExportType('all')}
                                 className={`flex items-center gap-2 px-4 py-3 rounded-lg border-2 transition-colors ${exportType === 'all'
-                                        ? 'border-chat-accent bg-chat-accent/10 text-chat-accent'
-                                        : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'
+                                    ? 'border-chat-accent bg-chat-accent/10 text-chat-accent'
+                                    : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'
                                     }`}
                             >
                                 <Download className="w-4 h-4" />
@@ -194,8 +194,8 @@ export default function ExportModal({ onClose }) {
                                     key={format}
                                     onClick={() => setExportFormat(format)}
                                     className={`px-4 py-3 rounded-lg border-2 transition-colors font-medium uppercase ${exportFormat === format
-                                            ? 'border-chat-accent bg-chat-accent/10 text-chat-accent'
-                                            : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'
+                                        ? 'border-chat-accent bg-chat-accent/10 text-chat-accent'
+                                        : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300'
                                         }`}
                                 >
                                     {format}
