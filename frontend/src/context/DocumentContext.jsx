@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { listDocuments, uploadDocument, uploadURL, deleteDocument } from '../api/client'
+import { listDocuments, uploadDocument, uploadURL, deleteDocument } from '../util'
 import toast from 'react-hot-toast'
 
 const DocumentContext = createContext()

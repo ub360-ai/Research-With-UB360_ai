@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useDocuments } from '../context/DocumentContext'
 import { useDropzone } from 'react-dropzone'
 import { Upload, Link as LinkIcon, FileText, Trash2, Loader, Edit2, Download, Check, X as XIcon } from 'lucide-react'
-import { renameDocument, downloadDocument } from '../api/client'
+import { renameDocument, downloadDocument } from '../util'
 import toast from 'react-hot-toast'
 import PrivacyNotice from '../components/common/PrivacyNotice'
 

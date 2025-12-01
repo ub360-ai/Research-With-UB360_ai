@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { query as apiQuery } from '../api/client'
+import { query as apiQuery } from '../util'
 import toast from 'react-hot-toast'
 
 const ChatContext = createContext()

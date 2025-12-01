@@ -1,11 +1,44 @@
-baseURL: API_URL,
+/**
+ * API Utility - Research Assistant
+ * Handles all API calls with automatic environment detection
+ * Works in both Choreo (production) and local development
+ */
+import axios from 'axios'
+
+// ============= API URL Configuration =============
+
+/**
+ * Get the correct API URL based on environment
+ * - Production (Choreo): Uses internal connection path
+ * - Development (Local): Uses localhost
+ */
+const getAPIUrl = () => {
+    // Production mode (built with npm run build)
+    if (import.meta.env.PROD) {
+        console.log('🚀 Production mode - Using Choreo connection')
+        return '/choreo-apis/default/research-assistant-api/v1/api/v1'
+    }
+
+    // Development mode (npm run dev)
+    console.log('💻 Development mode - Using localhost')
+    return 'http://localhost:8000/api/v1'
+}
+
+const API_URL = getAPIUrl()
+console.log('📡 API Base URL:', API_URL)
+
+// ============= Axios Instance =============
+
+const api = axios.create({
+    baseURL: API_URL,
     timeout: 60000, // 60 seconds for ML operations
-        headers: {
-    'Content-Type': 'application/json',
+    headers: {
+        'Content-Type': 'application/json',
     },
 })
 
-// Request interceptor - Add auth token if available
+// ============= Request Interceptor =============
+
 api.interceptors.request.use(
     (config) => {
         // Add timestamp to prevent caching
@@ -23,12 +56,13 @@ api.interceptors.request.use(
         return config
     },
     (error) => {
-        console.error('Request error:', error)
+        console.error('❌ Request error:', error)
         return Promise.reject(error)
     }
 )
 
-// Response interceptor - Handle errors and retries
+// ============= Response Interceptor =============
+
 api.interceptors.response.use(
     (response) => response,
     async (error) => {
@@ -37,9 +71,8 @@ api.interceptors.response.use(
         // Handle rate limiting (429)
         if (error.response?.status === 429) {
             const retryAfter = error.response.headers['retry-after'] || 60
-            console.warn(`Rate limited. Retry after ${retryAfter}s`)
+            console.warn(`⏱️ Rate limited. Retry after ${retryAfter}s`)
 
-            // Don't retry automatically for rate limits
             return Promise.reject({
                 ...error,
                 message: `Rate limit exceeded. Please wait ${retryAfter} seconds.`,
@@ -49,6 +82,7 @@ api.interceptors.response.use(
         // Handle server errors (500+) with retry
         if (error.response?.status >= 500 && !originalRequest._retry) {
             originalRequest._retry = true
+            console.log('🔄 Retrying request after server error...')
 
             // Wait 2 seconds before retry
             await new Promise(resolve => setTimeout(resolve, 2000))
@@ -58,7 +92,7 @@ api.interceptors.response.use(
 
         // Handle network errors
         if (!error.response) {
-            console.error('Network error:', error.message)
+            console.error('🌐 Network error:', error.message)
             return Promise.reject({
                 ...error,
                 message: 'Network error. Please check your connection.',
@@ -181,6 +215,8 @@ export const getAPIInfo = () => {
         baseURL: API_URL,
         timeout: api.defaults.timeout,
         environment: import.meta.env.MODE,
+        isProd: import.meta.env.PROD,
+        isDev: import.meta.env.DEV,
     }
 }
 
