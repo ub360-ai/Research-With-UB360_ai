@@ -5,7 +5,7 @@
 import axios from 'axios'
 
 // Get API URL from environment or use localhost for development
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1'
+const API_URL = import.meta.env.VITE_API_URL || '/choreo-apis/default/research-assistant-api/v1/api/v1'
 
 // Create axios instance with default config
 const api = axios.create({
@@ -24,13 +24,13 @@ api.interceptors.request.use(
             ...config.params,
             _t: Date.now(),
         }
-        
+
         // Add auth token if available (for future use)
         const token = localStorage.getItem('auth_token')
         if (token) {
             config.headers.Authorization = `Bearer ${token}`
         }
-        
+
         return config
     },
     (error) => {
@@ -44,29 +44,29 @@ api.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config
-        
+
         // Handle rate limiting (429)
         if (error.response?.status === 429) {
             const retryAfter = error.response.headers['retry-after'] || 60
             console.warn(`Rate limited. Retry after ${retryAfter}s`)
-            
+
             // Don't retry automatically for rate limits
             return Promise.reject({
                 ...error,
                 message: `Rate limit exceeded. Please wait ${retryAfter} seconds.`,
             })
         }
-        
+
         // Handle server errors (500+) with retry
         if (error.response?.status >= 500 && !originalRequest._retry) {
             originalRequest._retry = true
-            
+
             // Wait 2 seconds before retry
             await new Promise(resolve => setTimeout(resolve, 2000))
-            
+
             return api(originalRequest)
         }
-        
+
         // Handle network errors
         if (!error.response) {
             console.error('Network error:', error.message)
@@ -75,7 +75,7 @@ api.interceptors.response.use(
                 message: 'Network error. Please check your connection.',
             })
         }
-        
+
         return Promise.reject(error)
     }
 )
@@ -85,7 +85,7 @@ api.interceptors.response.use(
 export const uploadDocument = (file, onProgress) => {
     const formData = new FormData()
     formData.append('file', file)
-    
+
     return api.post('/documents/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
         onUploadProgress: (progressEvent) => {
@@ -176,10 +176,10 @@ export const checkAPIConnection = async () => {
         await healthCheck()
         return { connected: true, url: API_URL }
     } catch (error) {
-        return { 
-            connected: false, 
+        return {
+            connected: false,
             url: API_URL,
-            error: error.message 
+            error: error.message
         }
     }
 }
