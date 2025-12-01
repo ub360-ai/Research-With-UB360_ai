@@ -48,15 +48,15 @@ export default function Chat() {
             {/* Messages Area */}
             <div className="flex-1 overflow-y-auto chat-scrollbar">
                 {messages.length === 0 ? (
-                    <div className="h-full flex items-center justify-center">
-                        <div className="text-center max-w-md px-4">
-                            <div className="w-16 h-16 bg-chat-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                                <FileText className="w-8 h-8 text-white" />
+                    <div className="h-full flex items-center justify-center px-4">
+                        <div className="text-center max-w-md">
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-chat-accent rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                                <FileText className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                             </div>
-                            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
+                            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white mb-2">
                                 Welcome to Research Assistant
                             </h2>
-                            <p className="text-gray-600 dark:text-gray-400 mb-6">
+                            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">
                                 {documents.length === 0 ? (
                                     <>
                                         Upload documents to get started with AI-powered research assistance.
@@ -71,7 +71,7 @@ export default function Chat() {
                             {documents.length === 0 && (
                                 <Link
                                     to="/documents"
-                                    className="inline-flex items-center gap-2 px-6 py-3 bg-chat-accent text-white rounded-lg hover:bg-chat-accent/90 transition-colors"
+                                    className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 min-h-[48px] bg-chat-accent text-white rounded-lg hover:bg-chat-accent/90 active:bg-chat-accent/80 transition-colors font-medium touch-manipulation"
                                 >
                                     <Upload className="w-5 h-5" />
                                     Upload Documents
@@ -80,7 +80,7 @@ export default function Chat() {
                         </div>
                     </div>
                 ) : (
-                    <div className="max-w-4xl mx-auto">
+                    <div className="max-w-4xl mx-auto px-2 sm:px-4">
                         {messages.map((message) => (
                             <ChatMessage key={message.id} message={message} />
                         ))}
@@ -91,8 +91,8 @@ export default function Chat() {
             </div>
 
             {/* Input Area */}
-            <div className="border-t border-gray-200 dark:border-gray-700">
-                <div className="max-w-4xl mx-auto">
+            <div className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+                <div className="max-w-4xl mx-auto px-2 sm:px-4">
                     <ChatInput onSend={handleSendMessage} loading={loading} />
                 </div>
             </div>

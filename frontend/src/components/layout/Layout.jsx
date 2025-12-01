@@ -58,7 +58,8 @@ export default function Layout({ children }) {
                     {isChat && (
                         <button
                             onClick={() => setSidebarOpen(!sidebarOpen)}
-                            className="lg:hidden fixed top-20 left-4 z-30 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700"
+                            className="lg:hidden fixed top-20 left-4 z-30 p-3 min-w-[48px] min-h-[48px] bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 active:bg-gray-100 dark:active:bg-gray-600 transition-colors touch-manipulation"
+                            aria-label="Toggle chat history"
                         >
                             <Menu className="w-5 h-5" />
                         </button>

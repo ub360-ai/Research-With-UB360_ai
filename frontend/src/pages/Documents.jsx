@@ -136,9 +136,9 @@ export default function Documents() {
     }
 
     return (
-        <div className="h-[calc(100vh-13rem)] overflow-y-auto chat-scrollbar">
-            <div className="container mx-auto px-4 py-8 max-w-4xl">
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+        <div className="h-[calc(100vh-8rem)] sm:h-[calc(100vh-13rem)] overflow-y-auto chat-scrollbar">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 max-w-4xl">
+                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-8">
                     Document Management
                 </h1>
 
@@ -146,42 +146,42 @@ export default function Documents() {
                 <PrivacyNotice />
 
                 {/* Upload Section */}
-                <div className="space-y-6 mb-8">
+                <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
                     {/* File Upload */}
                     <div
                         {...getRootProps()}
-                        className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-colors ${isDragActive
+                        className={`border-2 border-dashed rounded-lg p-6 sm:p-12 text-center cursor-pointer transition-colors touch-manipulation ${isDragActive
                             ? 'border-chat-accent bg-chat-accent/5'
-                            : 'border-gray-300 dark:border-gray-600 hover:border-chat-accent'
+                            : 'border-gray-300 dark:border-gray-600 hover:border-chat-accent active:border-chat-accent'
                             }`}
                     >
                         <input {...getInputProps()} />
-                        <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-                        <p className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                        <Upload className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-3 sm:mb-4 text-gray-400" />
+                        <p className="text-base sm:text-lg font-medium text-gray-900 dark:text-white mb-1 sm:mb-2">
                             {isDragActive ? 'Drop files here' : 'Drag & drop files here'}
                         </p>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                            or click to browse • PDF, DOCX, TXT, MD
+                        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+                            or tap to browse • PDF, DOCX, TXT, MD
                         </p>
                     </div>
 
                     {/* URL Upload */}
-                    <form onSubmit={handleURLSubmit} className="flex gap-2">
+                    <form onSubmit={handleURLSubmit} className="flex flex-col sm:flex-row gap-2 sm:gap-2">
                         <div className="flex-1 relative">
                             <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                             <input
                                 type="url"
                                 value={urlInput}
                                 onChange={(e) => setUrlInput(e.target.value)}
-                                placeholder="Enter URL to scrape (e.g., https://example.com/article)"
-                                className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-chat-accent"
+                                placeholder="Enter URL to scrape"
+                                className="w-full pl-10 pr-4 py-3 sm:py-3 min-h-[48px] rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-chat-accent text-sm sm:text-base"
                                 disabled={uploading}
                             />
                         </div>
                         <button
                             type="submit"
                             disabled={!urlInput.trim() || uploading}
-                            className="px-6 py-3 bg-chat-accent text-white rounded-lg hover:bg-chat-accent/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                            className="w-full sm:w-auto px-6 py-3 min-h-[48px] bg-chat-accent text-white rounded-lg hover:bg-chat-accent/90 active:bg-chat-accent/80 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium touch-manipulation"
                         >
                             {uploading ? 'Uploading...' : 'Add URL'}
                         </button>
@@ -190,7 +190,7 @@ export default function Documents() {
 
                 {/* Documents List */}
                 <div>
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+                    <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                         Your Documents ({documents.length})
                     </h2>
 
@@ -203,13 +203,13 @@ export default function Documents() {
                             No documents uploaded yet
                         </div>
                     ) : (
-                        <div className="grid gap-4">
+                        <div className="grid gap-3 sm:gap-4">
                             {documents.map((doc) => (
                                 <div
                                     key={doc.document_id}
-                                    className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-chat-accent transition-colors"
+                                    className="p-3 sm:p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-chat-accent active:border-chat-accent transition-colors"
                                 >
-                                    <div className="flex items-start justify-between gap-4">
+                                    <div className="flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-4">
                                         <div className="flex items-start gap-3 flex-1 min-w-0">
                                             <FileText className="w-5 h-5 text-chat-accent flex-shrink-0 mt-0.5" />
                                             <div className="flex-1 min-w-0">
@@ -281,33 +281,33 @@ export default function Documents() {
                                         </div>
 
                                         {/* Action Buttons */}
-                                        <div className="flex items-center gap-1">
+                                        <div className="flex items-center gap-1 sm:gap-1 w-full sm:w-auto justify-end">
                                             <button
                                                 onClick={() => startRename(doc)}
-                                                className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                                                className="p-2 sm:p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-blue-600 hover:bg-blue-50 active:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg transition-colors touch-manipulation"
                                                 title="Rename document"
                                                 disabled={editingId !== null}
                                             >
-                                                <Edit2 className="w-4 h-4" />
+                                                <Edit2 className="w-5 h-5 sm:w-4 sm:h-4" />
                                             </button>
                                             <button
                                                 onClick={() => handleDownload(doc)}
-                                                className="p-2 text-chat-accent hover:bg-chat-accent/10 rounded-lg transition-colors"
+                                                className="p-2 sm:p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-chat-accent hover:bg-chat-accent/10 active:bg-chat-accent/20 rounded-lg transition-colors touch-manipulation"
                                                 title="Download with UB360.ai watermark"
                                                 disabled={downloading === doc.document_id}
                                             >
                                                 {downloading === doc.document_id ? (
-                                                    <Loader className="w-4 h-4 animate-spin" />
+                                                    <Loader className="w-5 h-5 sm:w-4 sm:h-4 animate-spin" />
                                                 ) : (
-                                                    <Download className="w-4 h-4" />
+                                                    <Download className="w-5 h-5 sm:w-4 sm:h-4" />
                                                 )}
                                             </button>
                                             <button
                                                 onClick={() => handleDelete(doc.document_id, doc.filename)}
-                                                className="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                                                className="p-2 sm:p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-red-500 hover:bg-red-50 active:bg-red-100 dark:hover:bg-red-900/20 rounded-lg transition-colors touch-manipulation"
                                                 title="Delete document"
                                             >
-                                                <Trash2 className="w-4 h-4" />
+                                                <Trash2 className="w-5 h-5 sm:w-4 sm:h-4" />
                                             </button>
                                         </div>
                                     </div>

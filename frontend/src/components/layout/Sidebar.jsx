@@ -85,7 +85,7 @@ export default function Sidebar({ isOpen, onToggle }) {
 
             {/* Sidebar */}
             <aside
-                className={`fixed lg:relative top-0 left-0 h-full w-64 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 z-50 transform transition-transform duration-200 ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+                className={`fixed lg:relative top-16 lg:top-0 left-0 h-[calc(100%-4rem)] lg:h-full w-64 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 z-50 transform transition-transform duration-200 ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
                     }`}
             >
                 <div className="flex flex-col h-full">
