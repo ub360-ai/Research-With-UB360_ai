@@ -1,35 +1,7 @@
-/**
- * API Client Configuration
- * Optimized for Choreo deployment with retry logic and error handling
- */
-import axios from 'axios'
-
-// Get API URL from Choreo config.js (File Mount) or environment variable
-// Priority: window.configs (Choreo) > import.meta.env (Vite) > localhost (dev)
-const getAPIUrl = () => {
-    // Check if Choreo config is loaded
-    if (typeof window !== 'undefined' && window.configs?.VITE_API_URL) {
-        console.log('📡 Using Choreo config:', window.configs.VITE_API_URL)
-        return window.configs.VITE_API_URL
-    }
-    // Fallback to Vite environment variable
-    if (import.meta.env.VITE_API_URL) {
-        console.log('📡 Using Vite env:', import.meta.env.VITE_API_URL)
-        return import.meta.env.VITE_API_URL
-    }
-    // Default for local development
-    console.log('📡 Using localhost (development)')
-    return 'http://localhost:8000/api/v1'
-}
-
-const API_URL = getAPIUrl()
-
-// Create axios instance with default config
-const api = axios.create({
-    baseURL: API_URL,
+baseURL: API_URL,
     timeout: 60000, // 60 seconds for ML operations
-    headers: {
-        'Content-Type': 'application/json',
+        headers: {
+    'Content-Type': 'application/json',
     },
 })
 
