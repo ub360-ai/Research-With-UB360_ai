@@ -1,0 +1,28 @@
+# Python
+venv/
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.ipynb_checkpoints
+
+# Data & DBs
+data/
+chroma_db/
+documents/
+exports/
+temp/
+
+# Version control
+.git/
+.gitignore
+
+# IDEs
+.vscode/
+.idea/
+
+# Logs & misc
+*.log
+.DS_Store

@@ -25,7 +25,7 @@ chromadb==1.0.12
 sentence-transformers==5.1.0
 
 # ============= ML/AI Dependencies =============
-torch==2.8.0
+
 transformers==4.56.1
 numpy==2.3.3
 scikit-learn==1.7.2
@@ -63,8 +63,14 @@ gunicorn==21.2.0
 # ============= Scheduler (Data Cleanup) =============
 apscheduler==3.10.4
 
+
+# PyTorch CPU-only version
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.8.0+cpu
+
 # ============= Development (Optional) =============
 # pytest==8.0.0
 # pytest-asyncio==0.23.5
 # black==24.2.0
 # flake8==7.0.0
+
