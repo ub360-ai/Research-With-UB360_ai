@@ -51,7 +51,7 @@ export default defineConfig({
     host: true, // Listen on all addresses
     proxy: {
       '/api': {
-        target: process.env.VITE_API_URL || '/choreo-apis/default/research-assistant-api/api',
+        target: process.env.VITE_API_URL || '/choreo-apis/default/research-assistant-api',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, '/api/v1'),
