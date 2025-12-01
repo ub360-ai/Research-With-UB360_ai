@@ -5,7 +5,7 @@
 import axios from 'axios'
 
 // Get API URL from environment or use localhost for development
-const API_URL = import.meta.env.VITE_API_URL || '/choreo-apis/default/research-assistant-api/v1/api/v1'
+const API_URL = import.meta.env.VITE_API_URL || '/choreo-apis/default/research-assistant-api/api/v1'
 
 // Create axios instance with default config
 const api = axios.create({
